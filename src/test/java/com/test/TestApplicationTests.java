@@ -44,30 +44,28 @@ class TestApplicationTests {
 	}
 
 	@Test
-	public boolean ValidacaodeUpperCase() throws IOException {
+	public void ValidacaodeUpperCase() throws IOException {
 
 
 		CharacterCharacteristicsRule characterCharacteristicsRule = new CharacterCharacteristicsRule(
 				3,
-				new CharacterRule(EnglishCharacterData.LowerCase, 5),
-				new CharacterRule(EnglishCharacterData.UpperCase, 5),
-				new CharacterRule(EnglishCharacterData.Digit),
-				new CharacterRule(EnglishCharacterData.Special)
+				new CharacterRule(EnglishCharacterData.LowerCase, 1),
+				new CharacterRule(EnglishCharacterData.UpperCase, 1),
+				new CharacterRule(EnglishCharacterData.Digit,1),
+				new CharacterRule(EnglishCharacterData.Special,1)
 		);
 
 		PasswordValidator validator = new PasswordValidator(characterCharacteristicsRule);
-		RuleResult result = validator.validate(new PasswordData("fdafafasfa"));
+		PasswordData password = new PasswordData("microSoft@123");
+		RuleResult result = validator.validate(password);
 
+		if(result.isValid()){
 
-		if (result.isValid()) {
-			System.out.println("Valid password");
-			return true;
+			System.out.println("Password validated.");
+			assertTrue(true,"Password validated");
+		} else {
+			System.out.println("Invalid Password: " + validator.getMessages(result));
 		}
-		for (String m : validator.getMessages(result)) {
-			System.err.println(m);
-		}
-		return false;
-
 
 
 	}
